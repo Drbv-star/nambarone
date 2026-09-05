@@ -1,23 +1,56 @@
 # Nambarone.lol
 
-Pay to claim your spot. Be Nambarone.
+India-focused creator ranking game.
 
-## Shared board (so every visitor sees the same list)
+> **Pre-launch build — payments are OFF.**
 
-1. Create a free account at https://jsonbin.io
-2. New bin. Contents:
+Nambarone lets creators claim a position on a public ranking board and share their position with their audience.
 
-```
-{"listings":[],"activity":[]}
-```
+## Current status
 
-3. Copy Bin ID and Master Key into `config.js` (and the same values are inside index.html / today.html / clicks.html — search for jsonbinId).
+This is the **free pre-launch version**.
 
-Without those two fields the sheet still works, but only on that browser.
+- Payments are OFF.
+- Nothing on the site charges money.
+- “Try” / “Claim” actions create demo rankings locally.
+- Cashfree payment integration will be added after production KYC and payment wiring are completed.
 
-## Deploy
+## Important security note
 
-Upload this whole folder to nambarone.lol (Cloudflare Pages, Netlify, or any static host).
-Homepage must be index.html.
+Do **not** put a Cashfree secret, API key, JSONBin Master Key, database credential, or any other private secret inside the frontend.
 
-Payments are not wired yet.
+The current `config.js` intentionally contains no write/master credentials.
+
+## Pages
+
+- `/` — All-time leaderboard
+- `/today.html` — Today's leaderboard
+- `/clicks.html` — Profile-click leaderboard
+- `/rules.html` — Rules
+- `/about.html` — About
+- `/contact.html` — Contact
+- `/terms.html` — Terms
+- `/privacy.html` — Privacy
+
+## Deployment
+
+The project is a static HTML/CSS/JavaScript site.
+
+The repository root must contain:
+
+`index.html`
+
+It can be deployed using Cloudflare Pages or another static hosting provider.
+
+## Roadmap
+
+1. Launch free pre-launch version
+2. Build initial creator/community traction
+3. Complete Cashfree KYC
+4. Add secure server-side payment processing
+5. Add real-time shared rankings
+6. Add outbid notifications and viral “take it back” mechanics
+
+## License
+
+All rights reserved.

@@ -1,0 +1,7 @@
+name = "nambarone"
+compatibility_date = "2026-09-06"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nambarone-db"
+database_id = "2df98818-7965-4f5a-97d0-0203a0582c9d"

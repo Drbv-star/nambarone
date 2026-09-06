@@ -2,5 +2,5 @@
 window.NAMBARONE = {
   site: "https://nambarone.lol",
   launchMode: false,
-  paymentsLive: false
+  paymentsLive: true
 };

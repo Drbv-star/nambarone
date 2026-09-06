@@ -235,23 +235,33 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
   };
 
   function renderStats(){
-  const el=document.getElementById("stats");
-  if(!el)return;
-  const t=topFor("today"),a=topFor("all");
-  const clicks=listings.reduce((sum,x)=>sum+(x.clicks||0),0);
+  const el = document.getElementById("stats");
+  if (!el) return;
+  const t = topFor("today");
+  const a = topFor("all");
+  const clicks = listings.reduce((sum,x) => sum + (x.clicks || 0), 0);
 
-  function card(row,amount,title){
-    if(!row)return '<div class="stat"><b>₹40</b><span>'+title+'<br>OPEN</span></div>';
-    const url=hrefFor(row.platform,row.handle,row.cat);
-    const img=photoFor(row);
-    const name=esc(row.name||row.handle||"Unknown");
-    return '<div class="stat"><a href="'+url+'" target="_blank" rel="noopener" class="top"><img class="avatar" src="'+img+'" alt="" loading="lazy"><span><b>₹'+int(amount)+'</b><br>'+title+'<br>'+name+'</span></a></div>';
+  function card(row, amount, title, rankLabel){
+    if (!row) {
+      return '<div class="stat"><b>₹40</b><span>' + title + '<br>OPEN</span></div>';
+    }
+
+    const url = hrefFor(row.platform, row.handle, row.cat);
+    const img = photoFor(row);
+    const name = esc(row.name || row.handle || "Unknown");
+    const handle = esc(row.handle || "");
+
+    return '<div class="stat"><a href="' + url + '" target="_blank" rel="noopener" class="top">' +
+      '<img class="avatar" src="' + img + '" alt="" loading="lazy">' +
+      '<span><b>' + rankLabel + ' · ₹' + int(amount) + '</b><br>' +
+      title + '<br><strong>' + name + '</strong><br>' + handle +
+      '</span></a></div>';
   }
 
-  el.innerHTML=
-    card(t,t?t.today:0,"TODAY'S TOP")+
-    card(a,a?a.total:0,"ALL-TIME #1")+
-    '<div class="stat"><b>'+listings.length+'</b><span>'+clicks+' PROFILE CLICKS</span></div>';
+  el.innerHTML =
+    card(leader("today"), t, "TODAY'S TOP", "#1") +
+    card(leader("all"), a, "ALL-TIME", "#1") +
+    '<div class="stat"><b>' + listings.length + '</b><span>' + clicks + ' PROFILE CLICKS</span></div>';
 }
 function renderBoard(){
     const el = document.getElementById("board");

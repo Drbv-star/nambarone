@@ -246,7 +246,248 @@ a.name:hover, .who a:hover { text-decoration: underline; }
   .mob-take .take.share { margin-top: 8px; }
 }
 </style>
-</head>
+<style>
+/* Nambarone mobile compact layout */
+
+@media (max-width:640px){
+
+body{overflow-x:hidden}
+
+.sheet{
+ width:100%;
+ max-width:none;
+ padding:0 12px 42px;
+}
+
+.mast{padding:8px 0 5px;gap:5px}
+
+.wordmark{
+ font-size:clamp(38px,13vw,52px);
+ padding:2px 0;
+}
+
+.tagline{
+ font-size:9px;
+ letter-spacing:.12em;
+ padding:4px 0;
+ margin-top:2px;
+}
+
+nav.ed{
+ justify-content:flex-start;
+ flex-wrap:nowrap;
+ overflow-x:auto;
+ white-space:nowrap;
+ scrollbar-width:none;
+ margin:0 -12px;
+ padding:0 12px;
+}
+
+nav.ed::-webkit-scrollbar{display:none}
+
+nav.ed a{
+ flex:0 0 auto;
+ padding:8px 9px;
+ font-size:10px;
+}
+
+.kicker{
+ margin:16px 0 5px;
+ font-size:9px;
+}
+
+h1.hed{
+ font-size:clamp(30px,9vw,40px);
+ line-height:1.02;
+ margin:0 0 8px;
+}
+
+.deck{
+ margin:5px 0 14px;
+ font-size:15px;
+ line-height:1.32;
+ max-width:100%;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:6px;
+ margin:12px 0 14px;
+ border:0;
+}
+
+.stat{
+ min-width:0;
+ min-height:72px;
+ padding:9px;
+ border:1px solid rgba(22,18,12,.18);
+ border-radius:12px;
+ overflow:hidden;
+}
+
+.stat .top{
+ gap:6px;
+ min-width:0;
+}
+
+.stat .top .avatar{
+ width:32px;
+ height:32px;
+ border-radius:9px;
+}
+
+.stat .top span{
+ min-width:0;
+ font-size:8px;
+ line-height:1.25;
+ overflow:hidden;
+}
+
+.stat .top b{font-size:15px}
+
+.stat> b{font-size:19px}
+
+.stat>span{
+ font-size:8px;
+ line-height:1.25;
+}
+
+.claim{
+ padding:12px;
+ border-radius:14px;
+ margin-bottom:12px;
+}
+
+.claim h2{
+ font-size:16px;
+ margin:0 0 8px;
+}
+
+.grid3{
+ display:grid;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ gap:6px;
+}
+
+.grid3 input,
+.grid3 select{
+ min-width:0;
+ min-height:42px;
+ height:42px;
+ padding:8px 10px;
+ font-size:12px;
+}
+
+#handle{grid-column:1/-1}
+#photo{display:none}
+#category{grid-column:1/-1}
+
+.amt{
+ display:grid;
+ grid-template-columns:42px minmax(0,1fr) 42px;
+ gap:5px;
+ margin-top:6px;
+}
+
+.amt button,
+.amt input{
+ min-height:40px;
+ height:40px;
+}
+
+.amt input{
+ width:100%;
+ text-align:center;
+}
+
+.actions{
+ display:grid;
+ grid-template-columns:minmax(0,1fr);
+ gap:6px;
+ margin-top:7px;
+}
+
+.actions button{
+ width:100%;
+ min-height:42px;
+ font-size:11px;
+}
+
+.fine{
+ font-size:8px;
+ line-height:1.3;
+}
+
+.filters{
+ display:flex;
+ flex-wrap:nowrap;
+ overflow-x:auto;
+ gap:5px;
+ margin:10px 0 12px;
+ padding-bottom:3px;
+ scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{display:none}
+
+.filters button{
+ flex:0 0 auto;
+ min-height:29px;
+ padding:5px 9px;
+ font-size:8px;
+}
+
+#board{
+ width:100%;
+ overflow-x:hidden;
+}
+
+#board .board{
+ width:100%;
+ border-collapse:collapse;
+ table-layout:fixed;
+}
+
+#board .board th{
+ padding:6px 3px;
+ font-size:8px;
+}
+
+#board .board td{
+ padding:8px 3px;
+ font-size:10px;
+ vertical-align:middle;
+}
+
+#board .board td:nth-child(1){width:25px}
+
+#board .board td:nth-child(3),
+#board .board td:nth-child(4){width:43px}
+
+#board .board td:nth-child(5){width:42px}
+
+#board .avatar{
+ width:34px;
+ height:34px;
+ border-radius:9px;
+}
+
+#board .name{
+ font-size:11px;
+ line-height:1.15;
+}
+
+#board .fine{font-size:7px}
+
+footer.col{
+ margin-top:20px;
+ font-size:8px;
+}
+
+}
+
+</style>\n</head>
 <body data-board="today">
   <div class="sheet">
     <header class="mast">

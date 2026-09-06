@@ -1,3 +1,6 @@
+const API = "/api";
+const LIVE_POLL_MS = 3000;
+let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0);
 (function () {
   const CATS = ["All","YouTube","Instagram","Shorts","Gaming","Comedy","Education","Tech","Finance","Fashion","Food","Fitness"];
   const storeKey = "nambarone_listings_v2";

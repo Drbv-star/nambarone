@@ -235,47 +235,25 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
   };
 
   function renderStats(){
-  const el = document.getElementById("stats");
-  if (!el) return;
+  const el=document.getElementById("stats");
+  if(!el)return;
+  const t=topFor("today"),a=topFor("all");
+  const clicks=listings.reduce((sum,x)=>sum+(x.clicks||0),0);
 
-  const t = topFor("today");
-  const a = topFor("all");
-  const tw = leader("today");
-  const aw = leader("all");
-  const clicks = listings.reduce((s,x) => s + (x.clicks || 0), 0);
-
-  function card(row, amount, title){
-    if (!row) {
-      return '<div class="stat"><b>₹40</b><span>' + title + '<br>Open</span></div>';
-    }
-
-    const url = hrefFor(row.platform, row.handle, row.cat);
-    const img = photoFor(row);
-    const name = esc(row.name || row.handle || "Unknown");
-
-    return '<div class="stat">' +
-      '<a href="' + url + '" target="_blank" rel="noopener" class="top">' +
-      '<img class="avatar" src="' + img + '" alt="" loading="lazy">' +
-      '<span><b>₹' + inr(amount) + '</b><br>' +
-      title + '<br>' + name + '</span>' +
-      '</a>' +
-      '</div>';
+  function card(row,amount,title){
+    if(!row)return '<div class="stat"><b>₹40</b><span>'+title+'<br>OPEN</span></div>';
+    const url=hrefFor(row.platform,row.handle,row.cat);
+    const img=photoFor(row);
+    const name=esc(row.name||row.handle||"Unknown");
+    return '<div class="stat"><a href="'+url+'" target="_blank" rel="noopener" class="top"><img class="avatar" src="'+img+'" alt="" loading="lazy"><span><b>₹'+int(amount)+'</b><br>'+title+'<br>'+name+'</span></a></div>';
   }
 
-  el.innerHTML =
-    card(tw, t, "Today's top") +
-    card(aw, a, "All-time #1") +
-    '<div class="stat"><b>' + listings.length +
-    '</b><span>' + clicks + ' profile clicks</span></div>';
+  el.innerHTML=
+    card(t,t?t.today:0,"TODAY'S TOP")+
+    card(a,a?a.total:0,"ALL-TIME #1")+
+    '<div class="stat"><b>'+listings.length+'</b><span>'+clicks+' PROFILE CLICKS</span></div>';
 }
-
-function renderFilters(){
-    const el = document.getElementById("filters");
-    if (!el) return;
-    el.innerHTML = CATS.map(c => `<button type="button" class="${c===filter?"on":""}" data-c="${c}">${c}</button>`).join("");
-    el.querySelectorAll("button").forEach(b => b.onclick = () => { filter = b.dataset.c; render(); });
-  }
-  function renderBoard(){
+function renderBoard(){
     const el = document.getElementById("board");
     if (!el) return;
     const rows = listForBoard();

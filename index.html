@@ -245,7 +245,294 @@ a.name:hover, .who a:hover { text-decoration: underline; }
 @media (max-width: 760px) {
   .mob-take .take.share { margin-top: 8px; }
 }
-</style>
+
+/* NAMBARONE MODERN UI */
+
+:root {
+  --shadow: 0 8px 24px rgba(22,18,12,.08);
+  --shadow-strong: 0 10px 28px rgba(22,18,12,.13);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.sheet {
+  padding-bottom: 90px;
+}
+
+/* Header */
+.mast {
+  padding-top: 18px;
+}
+
+nav.ed {
+  background: rgba(255,248,234,.72);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+/* Stats */
+.stats {
+  border: 0;
+  gap: 10px;
+  background: transparent;
+  margin: 22px 0 30px;
+}
+
+.stat {
+  border: 1px solid rgba(22,18,12,.18);
+  border-radius: 16px;
+  background: var(--cream);
+  padding: 13px;
+  box-shadow: 0 3px 12px rgba(22,18,12,.04);
+}
+
+.stat:last-child {
+  border-right: 1px solid rgba(22,18,12,.18);
+}
+
+.stat .top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+}
+
+.stat .top .avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  flex: none;
+}
+
+.stat .top span {
+  min-width: 0;
+  letter-spacing: .06em;
+}
+
+.stat .top b {
+  font-size: 20px;
+  letter-spacing: -.02em;
+}
+
+/* Claim panel */
+.claim {
+  border: 1px solid rgba(22,18,12,.18);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.claim h2 {
+  margin-bottom: 14px;
+}
+
+input, select, textarea, button {
+  border-radius: 12px;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+
+input, select {
+  min-height: 50px;
+  border-color: rgba(22,18,12,.22);
+  background: #fffdf8;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(193,18,31,.10);
+}
+
+.amt {
+  gap: 6px;
+}
+
+.amt button {
+  width: 52px;
+  min-height: 50px;
+  border-radius: 12px;
+  border: 1px solid rgba(22,18,12,.2);
+  background: #fffdf8;
+  font-size: 20px;
+}
+
+.amt input {
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Main CTA */
+button.go {
+  min-height: 52px;
+  border-radius: 13px;
+  border: 0;
+  padding: 12px 18px;
+  box-shadow: 0 5px 0 var(--red-d), 0 9px 18px rgba(193,18,31,.16);
+  font-size: 14px;
+}
+
+button.go:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--red-d);
+}
+
+button.quiet {
+  border-radius: 12px;
+}
+
+/* Filters */
+.filters {
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.filters button {
+  border: 1px solid rgba(22,18,12,.16);
+  border-radius: 999px;
+  background: rgba(255,248,234,.7);
+  padding: 9px 13px;
+}
+
+.filters button.on {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Leaderboard cards */
+table.board {
+  border-spacing: 0 9px;
+  border-collapse: separate;
+}
+
+table.board td {
+  border-bottom: 0;
+}
+
+table.board tr {
+  overflow: hidden;
+}
+
+table.board tr.one td {
+  background: #f7d7d4;
+}
+
+table.board tr.one {
+  box-shadow: var(--shadow-strong);
+}
+
+table.board .avatar {
+  border-radius: 12px;
+  border-color: rgba(22,18,12,.18);
+}
+
+table.board .take {
+  font-weight: 700;
+}
+
+/* Challenge */
+.challenge {
+  margin: 18px 0 24px;
+}
+
+.challenge-card {
+  border: 0;
+  border-radius: 20px;
+  background: #f7d7d4;
+  padding: 20px;
+  box-shadow: var(--shadow-strong);
+}
+
+.challenge-kicker {
+  font-weight: 700;
+}
+
+.challenge-main .avatar {
+  border-radius: 14px;
+}
+
+.challenge-title {
+  letter-spacing: -.025em;
+}
+
+.challenge-price {
+  font-size: 28px;
+}
+
+.challenge-btn {
+  border-radius: 13px !important;
+}
+
+/* Links */
+a.name:hover,
+.who a:hover {
+  text-decoration: none;
+}
+
+a.name {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color .15s ease;
+}
+
+a.name:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+
+  .sheet {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .stats {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .stat {
+    border-radius: 15px;
+    padding: 12px;
+  }
+
+  .claim {
+    border-radius: 18px;
+    padding: 15px;
+  }
+
+  table.board {
+    border-spacing: 0;
+  }
+
+  table.board tr {
+    border-radius: 16px;
+    box-shadow: 0 3px 14px rgba(22,18,12,.05);
+  }
+
+  table.board tr.one {
+    box-shadow: 0 8px 22px rgba(193,18,31,.12);
+  }
+
+  .mob-take .take {
+    min-height: 50px !important;
+    border-radius: 12px !important;
+    font-size: 12px;
+    font-weight: 700;
+    background: #fffdf8 !important;
+  }
+
+  .challenge-card {
+    border-radius: 18px;
+  }
+}
+\n</style>
 </head>
 <body data-board="all">
   <div class="sheet">

@@ -22,6 +22,64 @@ function todayIndia() {
   }).format(new Date());
 }
 
+
+function fallbackPhoto(platform, handle, name) {
+  const label = encodeURIComponent(String(name || handle || "N").slice(0, 24));
+  const fallback = `https://ui-avatars.com/api/?name=${label}&background=c1121f&color=fff8ea&size=160&bold=true`;
+  const provider = platform === "Instagram" ? "instagram" : "youtube";
+  return `https://unavatar.io/${provider}/${encodeURIComponent(handle)}?fallback=${encodeURIComponent(fallback)}`;
+}
+
+async function resolvePublicProfile(profile) {
+  let displayName = profile.handle;
+  let photo = fallbackPhoto(profile.platform, profile.handle, profile.handle);
+
+  try {
+    if (profile.platform === "Instagram") {
+      const r = await fetch(
+        `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(profile.handle)}`,
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "*/*",
+            "X-IG-App-ID": "936619743392459"
+          }
+        }
+      );
+
+      if (r.ok) {
+        const data = await r.json();
+        const user = data?.data?.user;
+
+        if (user) {
+          displayName = String(user.full_name || user.username || profile.handle).trim();
+          photo = String(user.profile_pic_url_hd || user.profile_pic_url || photo);
+        }
+      }
+    }
+
+    if (profile.platform === "YouTube") {
+      const r = await fetch(
+        `https://www.youtube.com/oembed?url=${encodeURIComponent(profile.url)}&format=json`,
+        { headers: { "User-Agent": "Mozilla/5.0" } }
+      );
+
+      if (r.ok) {
+        const data = await r.json();
+        displayName = String(data?.author_name || profile.handle).trim();
+        photo = String(data?.thumbnail_url || photo);
+      }
+    }
+  } catch (e) {
+    console.warn("Profile enrichment failed:", e);
+  }
+
+  return {
+    displayName: displayName || profile.handle,
+    photo
+  };
+}
+
 function normalizeProfile(raw) {
   let value = String(raw || '').trim();
   if (!value) return null;
@@ -105,7 +163,8 @@ export async function onRequestPost({ env, request }) {
   const category = String(body?.category || '').trim();
   const board = body?.board === 'today' ? 'today' : 'all-time';
   const amount = Math.floor(Number(body?.amount));
-  const photo = String(body?.photo || '').trim().slice(0, 1000);
+  const profileInfo = await resolvePublicProfile(profile);
+  const photo = profileInfo.photo;
 
   if (!profile) return json({ error: 'Use an Instagram or YouTube profile.' }, 400);
   if (!ALLOWED_CATEGORIES.has(category)) return json({ error: 'Choose a valid category.' }, 400);
@@ -149,8 +208,8 @@ export async function onRequestPost({ env, request }) {
     profile.platform,
     profile.handle,
     profile.url,
-    profile.handle,
-    photo
+    profileInfo.displayName,
+    profileInfo.photo
   ).run();
 
   const creator = await db.prepare(`

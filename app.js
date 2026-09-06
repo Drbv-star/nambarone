@@ -235,7 +235,25 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
     render();
   };
 
-  function renderStats(){
+  function renderFilters(){
+  const el = document.getElementById("filters");
+  if (!el) return;
+
+  el.innerHTML = CATS.map(cat =>
+    '<button type="button" class="' + (filter === cat ? 'on' : '') + '">' +
+    esc(cat) +
+    '</button>'
+  ).join("");
+
+  el.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", function(){
+      filter = this.textContent.trim();
+      render();
+    });
+  });
+}
+
+function renderStats(){
   const el = document.getElementById("stats");
   if (!el) return;
   const t = topFor("today");

@@ -48,12 +48,33 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
     const label = encodeURIComponent((x.name || x.handle || "N").slice(0, 24));
     return "https://ui-avatars.com/api/?name=" + label + "&background=c1121f&color=fff8ea&size=96&font-size=0.42&bold=true";
   }
-  function hrefFor(platform) {
-    const p = (platform || "").trim();
-    if (!p) return "#";
-    if (/^https?:\/\//i.test(p)) return safeUrl(p);
-    if (p.includes("youtube.com") || p.includes("youtu.be") || p.includes("instagram.com")) return safeUrl("https://" + p.replace(/^\/+/, ""));
-    if (p.startsWith("@")) return safeUrl("https://instagram.com/" + p.slice(1));
+  function hrefFor(platform, handle, cat) {
+    const p = String(platform || "").trim();
+    const h = String(handle || "").trim().replace(/^@+/, "");
+    const c = String(cat || "").trim().toLowerCase();
+
+    if (!p && !h) return "#";
+
+    if (/^https?:\/\//i.test(p)) {
+      return safeUrl(p);
+    }
+
+    if (/instagram\.com/i.test(p) || c === "instagram") {
+      return h
+        ? safeUrl("https://www.instagram.com/" + encodeURIComponent(h) + "/")
+        : "#";
+    }
+
+    if (/youtube\.com|youtu\.be/i.test(p) || c === "youtube" || c === "shorts") {
+      return h
+        ? safeUrl("https://www.youtube.com/@" + encodeURIComponent(h))
+        : "#";
+    }
+
+    if (p.startsWith("@")) {
+      return safeUrl("https://www.instagram.com/" + encodeURIComponent(p.slice(1)) + "/");
+    }
+
     return safeUrl("https://" + p.replace(/^\/+/, ""));
   }
   function cfg(){ return window.NAMBARONE || {}; }
@@ -247,7 +268,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
         ${rows.map((x,i) => {
           const rank = i + 1;
           const steal = Math.max(40, (rank === 1 ? top + 1 : score(x) + 1));
-          const url = hrefFor(x.platform);
+          const url = hrefFor(x.platform, x.handle, x.cat);
           const safeId = esc(x.id);
           const safeHandle = esc(x.handle);
           const safeName = esc(x.name);

@@ -1,8 +1,8 @@
 # Nambarone.lol
 
-Nambarone is a public paid ranking game for Indian Instagram and YouTube creators.
+Nambarone is a digital creator billboard where Instagram and YouTube creators pay for public advertising placement.
 
-**Pay to claim your spot. Be Nambarone.**
+**Claim your spot on the creator billboard.**
 
 ## Production architecture
 
@@ -37,8 +37,8 @@ Nambarone is a public paid ranking game for Indian Instagram and YouTube creator
 
 ## Payment integration
 
-Cashfree credentials must remain in server-side environment variables/secrets. The frontend must never receive a merchant secret or database write credential. The payment flow should be:
+Payment-provider credentials must remain in server-side environment variables/secrets. The frontend must never receive a merchant secret or database write credential. The payment flow should be:
 
-`creator profile → server calculates required amount → payment order → Cashfree verification/webhook → atomic D1 claim → live leaderboard update`
+`creator profile → server calculates required amount → payment order → provider verification/webhook → atomic D1 claim → live leaderboard update`
 
 A successful browser redirect alone must never grant a rank.

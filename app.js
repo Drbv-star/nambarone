@@ -136,7 +136,7 @@
   }
   function shareCopy(row, rank){
     const r = rank || "—";
-    return "Pay to claim your spot and be Nambarone.\n" +
+    return "I claimed a spot on the Nambarone creator billboard.\n" +
       row.name + " is #" + r + " on Nambarone.lol · " + (row.handle||"") + "\n" +
       "Visits from the sheet: " + (row.clicks||0) + "\n" +
       pageUrl();
@@ -155,7 +155,7 @@
       // Instagram does not expose a general web URL for posting a feed/story.
       // On supported phones, use the native share sheet so Instagram can be selected.
       if (navigator.share) {
-        navigator.share({ title: "My Nambarone rank", text: text, url: url })
+        navigator.share({ title: "My Nambarone billboard spot", text: text, url: url })
           .catch(function(){});
       } else if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(function(){
@@ -186,9 +186,9 @@
     slip.innerHTML = `<div class="slip">
       <button class="slip-x" type="button" onclick="document.getElementById('slip').style.display='none'">Close</button>
       <p class="kicker">Clipping</p>
-      <h3>Pay to claim your spot.<br>Be Nambarone.</h3>
+      <h3>My Nambarone billboard spot.<br>Creator placement claimed.</h3>
       <p class="slip-name">${row.name} · ${row.handle}</p>
-      <p>Rank #${rank} · ${row.cat || ""} · Visits from this sheet ${row.clicks||0}</p>
+      <p>Billboard #${rank} · ${row.cat || ""} · Visits from this billboard ${row.clicks||0}</p>
       <p class="fine">${url}</p>
       <div class="slip-shares">
         <button type="button" onclick="nambarShare('${row.id}','ig')">Instagram</button>
@@ -278,7 +278,7 @@
               <span>Visits from here ${x.clicks||0}</span>
             </td>
             <td class="mob-take">
-              <span class="take" onclick="nambarTake('${safeHandle}', ${steal})">Take this rank · ${inr(steal)}</span>
+              <span class="take" onclick="nambarTake('${safeHandle}', ${steal})">Take this spot · ${inr(steal)}</span>
               <span class="take share" onclick="nambarShare('${safeId}','copy')">Share this slip</span>
             </td>
           </tr>`;
@@ -290,11 +290,11 @@
     const el = document.getElementById("activity");
     if (!el) return;
     if (!activity.length) {
-      el.innerHTML = `<p class="fine">No listings yet. Be the first to claim a spot.</p>`;
+      el.innerHTML = `<p class="fine">No creators yet. Be the first to claim a billboard spot.</p>`;
       return;
     }
     el.innerHTML = activity.map(a =>
-      `<div class="act"><b>${a.name}</b> paid ${inr(a.bid)} · #${a.rank} on ${a.board || "all-time"} · ${a.t}</div>`
+      `<div class="act"><b>${a.name}</b> claimed a billboard spot for ${inr(a.bid)} · #${a.rank} on ${a.board || "all-time"} · ${a.t}</div>`
     ).join("");
   }
   function renderNeed(){
@@ -339,7 +339,7 @@
     const photo = (document.getElementById("photo")?.value || "").trim();
     const amt = Math.floor(Number(document.getElementById("amount")?.value));
     if (!raw) return toast("Add an Instagram or YouTube profile.");
-    if (!Number.isFinite(amt) || amt < 10) return toast("Minimum bid is ₹10.");
+    if (!Number.isFinite(amt) || amt < 10) return toast("Minimum billboard placement is ₹10.");
     try {
       const r = await fetch(API + "/claim", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({profile:raw, category:cat, photo, amount:amt, board:pageBoard}) });
       const data = await r.json().catch(()=>({}));

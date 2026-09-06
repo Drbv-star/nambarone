@@ -256,7 +256,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
     return '<div class="stat">' +
       '<a href="' + url + '" target="_blank" rel="noopener" class="top">' +
       '<img class="avatar" src="' + img + '" alt="" loading="lazy">' +
-      '<span><b>₹' + int(amount) + '</b><br>' +
+      '<span><b>₹' + inr(amount) + '</b><br>' +
       title + '<br>' + name + '</span>' +
       '</a>' +
       '</div>';

@@ -235,17 +235,41 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
   };
 
   function renderStats(){
-    const el = document.getElementById("stats");
-    if (!el) return;
-    const t = topFor("today"), a = topFor("all");
-    const tw = leader("today"), aw = leader("all");
-    const clicks = listings.reduce((s,x)=>s+(x.clicks||0),0);
-    el.innerHTML = `
-      <div class="stat"><b>${t ? inr(t) : "₹40"}</b><span>Today’s top${tw && t ? " · " + tw.name : " · open"}</span></div>
-      <div class="stat"><b>${a ? inr(a) : "₹40"}</b><span>All-time #1${aw && a ? " · " + aw.name : " · open"}</span></div>
-      <div class="stat"><b>${listings.length}</b><span>${clicks} profile clicks</span></div>`;
+  const el = document.getElementById("stats");
+  if (!el) return;
+
+  const t = topFor("today");
+  const a = topFor("all");
+  const tw = leader("today");
+  const aw = leader("all");
+  const clicks = listings.reduce((s,x) => s + (x.clicks || 0), 0);
+
+  function card(row, amount, title){
+    if (!row) {
+      return '<div class="stat"><b>₹40</b><span>' + title + '<br>Open</span></div>';
+    }
+
+    const url = hrefFor(row.platform, row.handle, row.cat);
+    const img = photoFor(row);
+    const name = esc(row.name || row.handle || "Unknown");
+
+    return '<div class="stat">' +
+      '<a href="' + url + '" target="_blank" rel="noopener" class="top">' +
+      '<img class="avatar" src="' + img + '" alt="" loading="lazy">' +
+      '<span><b>₹' + int(amount) + '</b><br>' +
+      title + '<br>' + name + '</span>' +
+      '</a>' +
+      '</div>';
   }
-  function renderFilters(){
+
+  el.innerHTML =
+    card(tw, t, "Today's top") +
+    card(aw, a, "All-time #1") +
+    '<div class="stat"><b>' + listings.length +
+    '</b><span>' + clicks + ' profile clicks</span></div>';
+}
+
+function renderFilters(){
     const el = document.getElementById("filters");
     if (!el) return;
     el.innerHTML = CATS.map(c => `<button type="button" class="${c===filter?"on":""}" data-c="${c}">${c}</button>`).join("");

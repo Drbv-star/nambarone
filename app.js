@@ -25,6 +25,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
   const pageSort = document.body.dataset.sort || "money";
 
   function inr(n){ return "₹" + Number(n).toLocaleString("en-IN"); }
+  function int(n){ return Number(n).toLocaleString("en-IN"); }
   function esc(v){
     return String(v ?? "").replace(/[&<>\"']/g, function(ch){
       return ({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;","'":"&#39;"})[ch];

@@ -114,7 +114,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
   }
   function setAmt(n){
     const input = document.getElementById("amount");
-    if (input) input.value = Math.max(10, Math.floor(Number(n) || 10));
+    if (input) input.value = Math.max(40, Math.floor(Number(n) || 40));
   }
   function findListing(raw) {
     const key = (raw || "").trim().toLowerCase();
@@ -220,8 +220,8 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
     const tw = leader("today"), aw = leader("all");
     const clicks = listings.reduce((s,x)=>s+(x.clicks||0),0);
     el.innerHTML = `
-      <div class="stat"><b>${t ? inr(t) : "₹10"}</b><span>Today’s top${tw && t ? " · " + tw.name : " · open"}</span></div>
-      <div class="stat"><b>${a ? inr(a) : "₹10"}</b><span>All-time #1${aw && a ? " · " + aw.name : " · open"}</span></div>
+      <div class="stat"><b>${t ? inr(t) : "₹40"}</b><span>Today’s top${tw && t ? " · " + tw.name : " · open"}</span></div>
+      <div class="stat"><b>${a ? inr(a) : "₹40"}</b><span>All-time #1${aw && a ? " · " + aw.name : " · open"}</span></div>
       <div class="stat"><b>${listings.length}</b><span>${clicks} profile clicks</span></div>`;
   }
   function renderFilters(){
@@ -236,7 +236,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
     const rows = listForBoard();
     const top = pageBoard === "today" ? topFor("today") : topFor("all");
     if (!rows.length) {
-      el.innerHTML = `<p class="fine">The sheet is empty. First name on ${pageBoard === "today" ? "Today" : "All-time"} costs ₹10.</p>`;
+      el.innerHTML = `<p class="fine">The sheet is empty. First name on ${pageBoard === "today" ? "Today" : "All-time"} costs ₹40.</p>`;
       return;
     }
     el.innerHTML = `<table class="board">
@@ -246,7 +246,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
       <tbody>
         ${rows.map((x,i) => {
           const rank = i + 1;
-          const steal = Math.max(10, (rank === 1 ? top + 1 : score(x) + 1));
+          const steal = Math.max(40, (rank === 1 ? top + 1 : score(x) + 1));
           const url = hrefFor(x.platform);
           const safeId = esc(x.id);
           const safeHandle = esc(x.handle);
@@ -303,7 +303,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
   function renderNeed(){
     const el = document.getElementById("needHint");
     if (!el) return;
-    const need = Math.max(10, topFor(pageBoard) + 1);
+    const need = Math.max(40, topFor(pageBoard) + 1);
     el.textContent = (pageBoard === "today" ? "Today" : "All-time") + " #1 costs " + inr(need);
   }
   function renderLookup(){
@@ -342,7 +342,7 @@ let serverVersion = Number(localStorage.getItem("nambarone_server_version") || 0
     const photo = (document.getElementById("photo")?.value || "").trim();
     const amt = Math.floor(Number(document.getElementById("amount")?.value));
     if (!raw) return toast("Add an Instagram or YouTube profile.");
-    if (!Number.isFinite(amt) || amt < 10) return toast("Minimum billboard placement is ₹10.");
+    if (!Number.isFinite(amt) || amt < 40) return toast("Minimum billboard placement is ₹40.");
     try {
       const r = await fetch(API + "/claim", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({profile:raw, category:cat, photo, amount:amt, board:pageBoard}) });
       const data = await r.json().catch(()=>({}));

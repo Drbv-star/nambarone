@@ -3,7 +3,7 @@ const ALLOWED_CATEGORIES = new Set([
   'Tech', 'Finance', 'Fashion', 'Food', 'Fitness'
 ]);
 
-const MIN_RUPEES = 10;
+const MIN_RUPEES = 40;
 const MAX_RUPEES = 20000000;
 
 function json(data, status = 200) {

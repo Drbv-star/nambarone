@@ -283,65 +283,104 @@ function renderStats(){
     '<div class="stat"><b>' + listings.length + '</b><span>' + clicks + ' PROFILE CLICKS</span></div>';
 }
 function renderBoard(){
-    const el = document.getElementById("board");
-    if (!el) return;
-    const rows = listForBoard();
-    const top = pageBoard === "today" ? topFor("today") : topFor("all");
-    if (!rows.length) {
-      el.innerHTML = `<p class="fine">The sheet is empty. First name on ${pageBoard === "today" ? "Today" : "All-time"} costs ₹40.</p>`;
-      return;
-    }
-    el.innerHTML = `<table class="board">
-      <thead><tr>
-        <th>Rank</th><th>Creator</th><th>Today</th><th>All-time</th><th>Clicks</th><th></th>
-      </tr></thead>
-      <tbody>
-        ${rows.map((x,i) => {
-          const rank = i + 1;
-          const steal = Math.max(40, (rank === 1 ? top + 1 : score(x) + 1));
-          const url = hrefFor(x.platform, x.handle, x.cat);
-          const safeId = esc(x.id);
-          const safeHandle = esc(x.handle);
-          const safeName = esc(x.name);
-          const safeCat = esc(x.cat);
-          const safePlatform = esc(x.platform);
-          return `<tr class="${rank===1?"one":""}">
-            <td class="r">#${rank}</td>
-            <td>
-              <div class="who">
-                <a href="${url}" target="_blank" rel="noopener" onclick="nambarClick('${safeId}')">
-                  <img class="avatar" src="${photoFor(x)}" alt="" loading="lazy" />
-                </a>
-                <div>
-                  <a class="name" href="${url}" target="_blank" rel="noopener" onclick="nambarClick('${safeId}')">${safeName}</a>
-                  <span class="sub">${safeHandle} · ${safeCat}</span>
-                  <a class="sub" href="${url}" target="_blank" rel="noopener" onclick="nambarClick('${safeId}')">${safePlatform}</a>
-                  <span class="visits">Visits from Nambarone · <b>${x.clicks||0}</b> total · ${x.clicksToday||0} today</span>
-                </div>
-              </div>
-            </td>
-            <td class="money">${inr(x.today||0)}</td>
-            <td class="money">${inr(x.total||0)}</td>
-            <td class="money">${x.clicks||0}<span class="sub">from here</span></td>
-            <td>
-              <span class="take" onclick="nambarTake('${safeHandle}', ${steal})">Take · ${inr(steal)}</span>
-              <span class="take share" onclick="nambarShare('${safeId}','copy')">Share slip</span>
-            </td>
-            <td class="mob-meta">
-              <span>Today ${inr(x.today||0)}</span>
-              <span>All-time ${inr(x.total||0)}</span>
-              <span>Visits from here ${x.clicks||0}</span>
-            </td>
-            <td class="mob-take">
-              <span class="take" onclick="nambarTake('${safeHandle}', ${steal})">Take this spot · ${inr(steal)}</span>
-              <span class="take share" onclick="nambarShare('${safeId}','copy')">Share this slip</span>
-            </td>
-          </tr>`;
-        }).join("")}
-      </tbody>
-    </table>`;
+  const el = document.getElementById("board");
+  if (!el) return;
+
+  const rows = listForBoard();
+  const top = pageBoard === "today" ? topFor("today") : topFor("all");
+
+  if (!rows.length) {
+    el.innerHTML = `
+      <p class="fine">
+        The sheet is empty. First name on ${pageBoard === "today" ? "Today" : "All-time"} costs ₹40.
+      </p>`;
+    return;
   }
-  function renderActivity(){
+
+  el.innerHTML = `
+    <div class="board-cards">
+      ${rows.map((x,i) => {
+        const rank = i + 1;
+
+        /* SAME RANKING / PRICE LOGIC AS BEFORE */
+        const steal = Math.max(
+          40,
+          (rank === 1 ? top + 1 : score(x) + 1)
+        );
+
+        const url = hrefFor(x.platform, x.handle, x.cat);
+        const safeId = esc(x.id);
+        const safeHandle = esc(x.handle);
+        const safeName = esc(x.name || x.handle || "Unknown");
+        const safeCat = esc(x.cat || "");
+        const safePlatform = esc(x.platform || "");
+
+        return `
+          <article class="creator-card ${rank === 1 ? "creator-card-top" : ""}">
+
+            <div class="creator-rank">#${rank}</div>
+
+            <a
+              class="creator-avatar-link"
+              href="${url}"
+              target="_blank"
+              rel="noopener"
+              onclick="nambarClick('${safeId}')"
+            >
+              <img
+                class="creator-avatar"
+                src="${photoFor(x)}"
+                alt=""
+                loading="lazy"
+              >
+            </a>
+
+            <div class="creator-main">
+
+              <a
+                class="creator-name"
+                href="${url}"
+                target="_blank"
+                rel="noopener"
+                onclick="nambarClick('${safeId}')"
+              >${safeName}</a>
+
+              <div class="creator-handle">${safeHandle}</div>
+
+              <div class="creator-topic">
+                <span>${safeCat}</span>
+                <b>·</b>
+                <span>${safePlatform}</span>
+              </div>
+
+              <div class="creator-stats">
+                <span>Today <b>${inr(x.today || 0)}</b></span>
+                <span>All-time <b>${inr(x.total || 0)}</b></span>
+                <span>Visits <b>${x.clicks || 0}</b></span>
+              </div>
+
+            </div>
+
+            <div class="creator-action">
+              <div class="creator-price">${inr(steal)}</div>
+
+              <span
+                class="take creator-take"
+                onclick="nambarTake('${safeHandle}', ${steal})"
+              >Take spot →</span>
+
+              <span
+                class="take share creator-share"
+                onclick="nambarShare('${safeId}','copy')"
+              >Share</span>
+            </div>
+
+          </article>
+        `;
+      }).join("")}
+    </div>`;
+}
+function renderActivity(){
     const el = document.getElementById("activity");
     if (!el) return;
     if (!activity.length) {

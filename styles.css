@@ -329,3 +329,208 @@ table.board tr.one {
     padding: 7px 12px;
   }
 }
+
+/* Nambarone modern creator cards */
+.board-cards{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:14px;
+}
+
+.creator-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:54px 58px 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:16px;
+  background:var(--cream);
+  border:1px solid var(--ink);
+  border-radius:18px;
+  box-shadow:4px 4px 0 var(--ink);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+
+.creator-card:hover{
+  transform:translateY(-2px);
+  box-shadow:6px 6px 0 var(--ink);
+}
+
+.creator-card-top{
+  border:2px solid var(--red);
+  box-shadow:5px 5px 0 var(--red);
+}
+
+.creator-rank{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:24px;
+  font-weight:900;
+  color:var(--red);
+}
+
+.creator-avatar-link{
+  display:block;
+}
+
+.creator-avatar{
+  display:block;
+  width:58px;
+  height:58px;
+  object-fit:cover;
+  border-radius:16px;
+  border:2px solid var(--ink);
+  background:#fff;
+}
+
+.creator-main{
+  min-width:0;
+}
+
+.creator-name{
+  display:block;
+  color:var(--ink);
+  font-size:21px;
+  line-height:1.05;
+  font-weight:900;
+  text-decoration:none;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.creator-handle{
+  margin-top:3px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.creator-topic{
+  display:flex;
+  gap:5px;
+  align-items:center;
+  margin-top:8px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--red);
+}
+
+.creator-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:9px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.creator-stats b{
+  color:var(--ink);
+}
+
+.creator-action{
+  min-width:105px;
+  text-align:right;
+}
+
+.creator-price{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:18px;
+  font-weight:900;
+}
+
+.creator-take{
+  display:block;
+  margin-top:7px;
+  color:var(--red);
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.creator-share{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.empty-board{
+  padding:28px 20px;
+  border:1px dashed var(--ink);
+  border-radius:18px;
+  text-align:center;
+}
+
+.empty-board strong,
+.empty-board span{
+  display:block;
+}
+
+.empty-board strong{
+  font-size:18px;
+}
+
+.empty-board span{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.empty-icon{
+  margin-bottom:8px;
+  color:var(--red);
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:28px;
+  font-weight:900;
+}
+
+@media(max-width:760px){
+  .creator-card{
+    grid-template-columns:42px 52px 1fr;
+    gap:9px;
+    padding:13px;
+    border-radius:16px;
+  }
+
+  .creator-rank{
+    font-size:21px;
+  }
+
+  .creator-avatar{
+    width:52px;
+    height:52px;
+    border-radius:14px;
+  }
+
+  .creator-name{
+    font-size:18px;
+  }
+
+  .creator-action{
+    grid-column:2 / 4;
+    min-width:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding-top:9px;
+    border-top:1px solid var(--rule);
+    text-align:left;
+  }
+
+  .creator-price{
+    font-size:16px;
+  }
+
+  .creator-take{
+    margin-top:0;
+  }
+
+  .creator-share{
+    margin-top:0;
+  }
+}

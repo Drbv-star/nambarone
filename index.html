@@ -532,6 +532,105 @@ a.name:hover {
     border-radius: 18px;
   }
 }
+
+/* ===== Nambarone modern leaderboard ===== */
+
+.filters button {
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: rgba(255,255,255,.5);
+  transition: transform .16s ease, background .16s ease;
+}
+
+.filters button:hover {
+  transform: translateY(-1px);
+}
+
+.filters button.on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+table.board tr {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+table.board tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgba(22,18,12,.10);
+}
+
+table.board tr.one {
+  background: linear-gradient(135deg, #fff1b8, #f7d7d4);
+  border-color: var(--red);
+  box-shadow: 0 4px 0 rgba(193,18,31,.16);
+}
+
+table.board tr.one .r {
+  font-size: 26px;
+}
+
+table.board tr.one .money {
+  font-size: 19px;
+}
+
+.money {
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.take {
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .15s ease, opacity .15s ease;
+}
+
+.take:hover {
+  transform: translateX(3px);
+  opacity: .75;
+}
+
+.stat {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 rgba(22,18,12,.08);
+}
+
+@keyframes nambaronePulse {
+  0%,100% { box-shadow: 0 4px 0 rgba(193,18,31,.16); }
+  50% { box-shadow: 0 7px 18px rgba(193,18,31,.18); }
+}
+
+table.board tr.one {
+  animation: nambaronePulse 3s ease-in-out infinite;
+}
+
+@media (max-width: 760px) {
+  .filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filters button {
+    flex: none;
+    min-height: 40px;
+    padding: 7px 12px;
+  }
+
+  table.board tr.one .r {
+    font-size: 26px;
+  }
+
+  table.board tr.one .money {
+    font-size: 18px;
+  }
+}
+
 </style>
 <style>
 /* Nambarone mobile compact layout */

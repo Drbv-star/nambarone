@@ -721,3 +721,86 @@ table.board tr.one {
     display: none;
   }
 }
+
+/* MOBILE HORIZONTAL LEADERBOARD */
+@media (max-width: 760px) {
+  .board-cards {
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .creator-card {
+    display: grid;
+    grid-template-columns: 24px 34px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    min-height: 52px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .creator-rank {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .creator-avatar-link,
+  .creator-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    max-width: 34px !important;
+    max-height: 34px !important;
+  }
+
+  .creator-name {
+    font-size: 15px;
+    line-height: 1.05;
+  }
+
+  .creator-handle {
+    display: none;
+  }
+
+  .creator-topic {
+    margin-top: 3px;
+    font-size: 7px;
+    line-height: 1;
+  }
+
+  .creator-stats {
+    margin-top: 3px;
+    gap: 6px;
+    font-size: 7px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .creator-action {
+    grid-column: auto;
+    min-width: 45px;
+    padding: 0;
+    border: 0;
+    text-align: right;
+  }
+
+  .creator-price {
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .creator-take {
+    margin-top: 3px;
+    font-size: 7px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .creator-share {
+    display: none;
+  }
+}

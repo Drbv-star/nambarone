@@ -534,3 +534,20 @@ table.board tr.one {
     margin-top:0;
   }
 }
+
+/* Refine creator card avatar sizing */
+.creator-avatar {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 760px) {
+  .creator-avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+}
